@@ -2,12 +2,11 @@
 
 % 中英文摘要
 \begin{cabstract}
-本篇文档主要介绍{\bf 北航毕业设计论文\LaTeX{}模板}使用和相关软件环境的安装配置，
-以及本模板所遵循的开源协议等。
+    基于 Transformer 架构的大语言模型（Large Language Model, LLM）使自然语言处理领域取得了巨大进步。然而，由于这些模型的推理延迟较长，它们在各种实时应用中的使用受限。自回归生成任务进一步加剧了推理延迟，因为模型需要迭代运行，按顺序生成标记，不能利用标记级并行化。为了解决这个问题，该文提出了Big Little Decoder（BiLD）框架，它可以在不降低生成质量的前提下提高推理效率，适用于各种文本生成应用。BiLD 框架包含两个不同大小的模型，它们协同生成文本。小模型以自回归方式运行，以较低的推理成本生成文本；大模型偶尔以非自回归方式修正小模型的不准确预测。为了协调大小模型，BiLD 引入了两种简单而有效的策略：(1) Fallback 策略用于确定何时将控制权移交给大模型；(2) Rollback 策略用于确定大模型如何修正小模型不准确的预测。在实验评估部分，BiLD 应用于各种文本生成场景，包括 IWSLT 2017 De-En 和 WMT 2014 De-En 上的机器翻译，以及 XSUM 和 CNN/DailyMail 上的摘要生成。在 NVIDIA T4 GPU 上，在几乎不减低生成质量的前提下，BiLD 实现了高达 2.12 倍的速度提升。此外，BiLD 框架完全即插即用，无需修改训练过程或模型架构。
 \end{cabstract}
 
-\begin{eabstract}
-Here is the Abstract in English. And this is a test sentence, just for
-a test to see how the buaathesis works. You can just ignore this.\par
-This is another pargraph.
-\end{eabstract}
+% \begin{eabstract}
+% Here is the Abstract in English. And this is a test sentence, just for
+% a test to see how the buaathesis works. You can just ignore this.\par
+% This is another pargraph.
+% \end{eabstract}

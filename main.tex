@@ -1,6 +1,16 @@
 % !Mode:: "TeX:UTF-8"
 \documentclass[bachelor,openany,oneside,color,AutoFakeBold=true]{buaathesis}
 
+\graphicspath{{images/}}
+
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
 % 参考文献
 \usepackage{gbt7714}
 % 参考文献输出方式，numerical为按照出现顺序，authoryear为按照作者姓名和年份
@@ -29,12 +39,11 @@
 \mainmatter
 
 % 正文
-\include{data/chapter1-intro}
-\include{data/chapter2-config}
-\include{data/chapter3-download}
-\include{data/chapter4-basic}
-\include{data/chapter5-usage}
-\include{data/chapter6-implement}
+\include{data/chapter1-background}
+\include{data/chapter2-issue}
+\include{data/chapter3-method}
+\include{data/chapter4-expriment}
+\include{data/chapter5-shortness}
 \include{data/conclusion}
 
 % 致谢

@@ -1,0 +1,13 @@
+% !Mode:: "TeX:UTF-8"
+\chapter{研究背景}
+
+近年来，Transformer 已成为各种自然语言处理任务的主流模型。LLM 的出现进一步提升了 Transformer 架构的潜力。LLM 在海量文本语料库中训练得到数千亿个参数，模型质量卓越。但是由于其规模过大，高效运行模型进行推理十分困难，这限制了大语言模型在实时响应任务中的应用。
+
+\section{相关工作}
+为了提高 Transformer 推理速度并降低推理成本，前人探索了高效架构设计\upcite{iandola2020squeezebert}、量化\upcite{kim2021ibert}、剪枝\upcite{gale2019state}和神经架构搜索\upcite{chen2021adabert}。
+
+部分研究致力于高效解码机制。非自回归解码\upcite{gu2018nonautoregressive}通过并行生成多个输出标记避免文本串行化生成，提升推理速度，但是质量较差。后续研究在此基础上通过添加辅助信息或多次迭代进一步改进推理质量。此外，也有研究降低解码器深度，同时增加编码器深度\upcite{kasai2021deep}或执行早期退出(early exiting)\upcite{schuster2022confident}。这些工作都需要修改模型结构和训练流水线。
+
+另一方面，可以使用多个模型提升推理效果。知识蒸馏\upcite{hinton2015distilling}通过训练较小模型来学习较大模型的行为，从而提高模型性能。集成学习\upcite{pai-2020-qiaoning}对多个模型进行独立训练，然后将它们的预测结果结合起来，以提高整体性能。
+
+与本文工作最相关的是，使用强模型对弱模型进行评分和推测性采样，提供强模型的概率分布的无偏估计器，从而加速推理\upcite{pmlr-v202-leviathan23a,chen2023accelerating}。

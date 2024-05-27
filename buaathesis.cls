@@ -183,7 +183,7 @@ The LaTeX template for thesis of BUAA]
         \else
             \fancyhead[C]{
                 \includegraphics[width=37bp]{figure/buaamark.pdf}\hfill
-                \raisebox{2ex}{\heiti\zihao{4}\buaa@university 毕业设计(论文)}\hfill
+                \raisebox{2ex}{\heiti\zihao{4}\buaa@university\ 计算机科学方法论}\hfill
                 \raisebox{2ex}{\songti\zihao{5}第\quad\thepage\quad 页}
             }
         \fi
@@ -668,7 +668,7 @@ The LaTeX template for thesis of BUAA]
                 \begin{center}
                     \includegraphics[width=360bp]{figure/buaaname.pdf}
                     \vskip 45bp
-                    \centerline{\zihao{-0}\heiti 毕业设计(论文)}
+                    \centerline{\zihao{-0}\heiti 计算机科学方法论\ 模块4}
                     ~~\\
                     \vspace*{\stretch{4}}
                     \begin{minipage}[h]{.8\textwidth}
@@ -904,21 +904,21 @@ The LaTeX template for thesis of BUAA]
             \end{minipage}
         \end{center}
         %\vskip 10bp
-        \begin{flushright}
-            \ifbuaa@twoteacher
-                {\begin{tabular}{cl}
-                    学\qquad 生：&\buaa@thesisauthor\\
-                    指导教师：&\buaa@teacher\\
-                    ~~ & \buaa@subteacher\\
-                    % I don't know is this corrent and properly.
-                \end{tabular}}
-            \else
-                {\begin{tabular}{cl}
-                    学\qquad 生：&\buaa@thesisauthor\\
-                    指导教师：&\buaa@teacher\\
-                \end{tabular}}
-            \fi
-        \end{flushright}
+        % \begin{flushright}
+        %     \ifbuaa@twoteacher
+        %         {\begin{tabular}{cl}
+        %             学\qquad 生：&\buaa@thesisauthor\\
+        %             指导教师：&\buaa@teacher\\
+        %             ~~ & \buaa@subteacher\\
+        %             % I don't know is this corrent and properly.
+        %         \end{tabular}}
+        %     \else
+        %         {\begin{tabular}{cl}
+        %             学\qquad 生：&\buaa@thesisauthor\\
+        %             指导教师：&\buaa@teacher\\
+        %         \end{tabular}}
+        %     \fi
+        % \end{flushright}
     \fi
     \centerline{\heiti\zihao{3} 摘~~~~要}
     \ifbuaa@bachelor
@@ -988,21 +988,21 @@ The LaTeX template for thesis of BUAA]
 % 本科生声明页
 
 \newcommand{\announce}{%
-    \clearemptydoublepage
-    \thispagestyle{empty}
-    \vspace*{54bp}
-    \centerline{\bf\zihao{-2}\songti 本人声明}
-    \vskip 27bp
-    \zihao{4}我声明，本论文及其研究工作是由本人在导师指导下独立完成的，在完成论文时所利用的一
-    切资料均已在参考文献中列出。\par
-    \vskip 63bp
-    \zihao{-4}
-    \hfill
-    \begin{tabular}{cl}
-        作者：&\buaa@thesisauthor\\
-        签字：&~~~~\\
-        时间：& \buaa@thesisdateyear~年~\buaa@thesisdatemonth ~月
-    \end{tabular}
+    % \clearemptydoublepage
+    % \thispagestyle{empty}
+    % \vspace*{54bp}
+    % \centerline{\bf\zihao{-2}\songti 本人声明}
+    % \vskip 27bp
+    % \zihao{4}我声明，本论文及其研究工作是由本人在导师指导下独立完成的，在完成论文时所利用的一
+    % 切资料均已在参考文献中列出。\par
+    % \vskip 63bp
+    % \zihao{-4}
+    % \hfill
+    % \begin{tabular}{cl}
+    %     作者：&\buaa@thesisauthor\\
+    %     签字：&~~~~\\
+    %     时间：& \buaa@thesisdateyear~年~\buaa@thesisdatemonth ~月
+    % \end{tabular}
 }
 
 %%%%%%%%%% assign %%%%%%%%%%
@@ -1063,74 +1063,74 @@ The LaTeX template for thesis of BUAA]
 }
 % 任务书
 \def\buaa@bachelor@assign{
-    \newpage
-    \thispagestyle{empty}
-    \parindent=0pt
-    \songti
-    {
-        \zihao{2}
-        {
-            \renewcommand{\CJKglue}{\hskip 1pt}
-            \centerline{\hwxingkai{北京航空航天大学}}
-        }
-        {
-            \renewcommand{\CJKglue}{\hskip 1.2pt}
-            \centerline{本科生毕业设计（论文）任务书}
-        }
-    }
-    {
-        \linespread{2}
-        \zihao{4}
-        \stepcounter{assign}
-        \Roman{assign}、毕业设计（论文）题目： \\[2.5ex]
-        \ulinel{\buaa@thesistitle}
-        \ulinel{\buaa@thesissubtitle}
-        \ulinel{}
-        \stepcounter{assign}
-        \Roman{assign}、毕业设计（论文）使用的原始资料（数据）及设计技术要求： \\[2.5ex]
-        \ulinel{\buaa@bachelor@assign@req@one}
-        \ulinel{\buaa@bachelor@assign@req@two}
-        \ulinel{\buaa@bachelor@assign@req@three}
-        \ulinel{\buaa@bachelor@assign@req@four}
-        \ulinel{\buaa@bachelor@assign@req@five}
-        \stepcounter{assign}
-        \Roman{assign}、毕业设计（论文）工作内容： \\[2.5ex]
-        \ulinel{\buaa@bachelor@assign@work@one}
-        \ulinel{\buaa@bachelor@assign@work@two}
-        \ulinel{\buaa@bachelor@assign@work@three}
-        \ulinel{\buaa@bachelor@assign@work@four}
-        \ulinel{\buaa@bachelor@assign@work@five}
-        \ulinel{\buaa@bachelor@assign@work@six}
-        \newpage
-        \thispagestyle{empty}
-        \begin{spacing}{1.9}
-        \zihao{4}
-        \stepcounter{assign}
-        \Roman{assign}、主要参考资料： \\[1.5ex]
-        \ulinel{\buaa@bachelor@assign@ref@one}
-        \ulinel{\buaa@bachelor@assign@ref@two}
-        \ulinel{\buaa@bachelor@assign@ref@three}
-        \ulinel{\buaa@bachelor@assign@ref@four}
-        \ulinel{\buaa@bachelor@assign@ref@five}
-        \ulinel{\buaa@bachelor@assign@ref@six}
-        \ulinel{\buaa@bachelor@assign@ref@seven}
-        \ulinel{\buaa@bachelor@assign@ref@eight}
-        \ulinec[.28]{\buaa@school}学院\ulinec[.28]{\buaa@major}~专业类~\ulinec[.15]{\buaa@class}班 \\
-        学生\ulinec[.3]{\buaa@thesisauthor} \\
-        毕业设计(论文)时间：~~\ulinec[.1]{\buaa@thesisbeginyear}年\ulinec[.06]{\buaa@thesisbeginmonth}月\ulinec[.06]{\buaa@thesisbeginday}日至\ulinec[.1]{\buaa@thesisendyear}年\ulinec[.06]{\buaa@thesisendmonth}月\ulinec[.06]{\buaa@thesisendday}日 \\
-        答辩时间：\ulinec[.16]{\buaa@defenseyear}年\ulinec[.08]{\buaa@defensemonth}月\ulinec[.08]{\buaa@defenseday}日 \\
-        成\qquad 绩：\ulinec[.3]{} \\
-        指导教师：\ulinec[.3]{} \\
-        兼职教师或答疑教师（并指出所负责部分）：\\
-        \ulinel{}
-        \ulinel{}
-        \ulinec[.28]{}系（教研室） 主任（签字）：\ulinec[.28]{} \\
-        \vfill
-        注：任务书应该附在已完成的毕业设计（论文）的首页。
-        \end{spacing}
-    }
-    \parindent=2\ccwd
-    \linespread{1.5}
+    % \newpage
+    % \thispagestyle{empty}
+    % \parindent=0pt
+    % \songti
+    % {
+    %     \zihao{2}
+    %     {
+    %         \renewcommand{\CJKglue}{\hskip 1pt}
+    %         \centerline{\hwxingkai{北京航空航天大学}}
+    %     }
+    %     {
+    %         \renewcommand{\CJKglue}{\hskip 1.2pt}
+    %         \centerline{本科生毕业设计（论文）任务书}
+    %     }
+    % }
+    % {
+    %     \linespread{2}
+    %     \zihao{4}
+    %     \stepcounter{assign}
+    %     \Roman{assign}、毕业设计（论文）题目： \\[2.5ex]
+    %     \ulinel{\buaa@thesistitle}
+    %     \ulinel{\buaa@thesissubtitle}
+    %     \ulinel{}
+    %     \stepcounter{assign}
+    %     \Roman{assign}、毕业设计（论文）使用的原始资料（数据）及设计技术要求： \\[2.5ex]
+    %     \ulinel{\buaa@bachelor@assign@req@one}
+    %     \ulinel{\buaa@bachelor@assign@req@two}
+    %     \ulinel{\buaa@bachelor@assign@req@three}
+    %     \ulinel{\buaa@bachelor@assign@req@four}
+    %     \ulinel{\buaa@bachelor@assign@req@five}
+    %     \stepcounter{assign}
+    %     \Roman{assign}、毕业设计（论文）工作内容： \\[2.5ex]
+    %     \ulinel{\buaa@bachelor@assign@work@one}
+    %     \ulinel{\buaa@bachelor@assign@work@two}
+    %     \ulinel{\buaa@bachelor@assign@work@three}
+    %     \ulinel{\buaa@bachelor@assign@work@four}
+    %     \ulinel{\buaa@bachelor@assign@work@five}
+    %     \ulinel{\buaa@bachelor@assign@work@six}
+    %     \newpage
+    %     \thispagestyle{empty}
+    %     \begin{spacing}{1.9}
+    %     \zihao{4}
+    %     \stepcounter{assign}
+    %     \Roman{assign}、主要参考资料： \\[1.5ex]
+    %     \ulinel{\buaa@bachelor@assign@ref@one}
+    %     \ulinel{\buaa@bachelor@assign@ref@two}
+    %     \ulinel{\buaa@bachelor@assign@ref@three}
+    %     \ulinel{\buaa@bachelor@assign@ref@four}
+    %     \ulinel{\buaa@bachelor@assign@ref@five}
+    %     \ulinel{\buaa@bachelor@assign@ref@six}
+    %     \ulinel{\buaa@bachelor@assign@ref@seven}
+    %     \ulinel{\buaa@bachelor@assign@ref@eight}
+    %     \ulinec[.28]{\buaa@school}学院\ulinec[.28]{\buaa@major}~专业类~\ulinec[.15]{\buaa@class}班 \\
+    %     学生\ulinec[.3]{\buaa@thesisauthor} \\
+    %     毕业设计(论文)时间：~~\ulinec[.1]{\buaa@thesisbeginyear}年\ulinec[.06]{\buaa@thesisbeginmonth}月\ulinec[.06]{\buaa@thesisbeginday}日至\ulinec[.1]{\buaa@thesisendyear}年\ulinec[.06]{\buaa@thesisendmonth}月\ulinec[.06]{\buaa@thesisendday}日 \\
+    %     答辩时间：\ulinec[.16]{\buaa@defenseyear}年\ulinec[.08]{\buaa@defensemonth}月\ulinec[.08]{\buaa@defenseday}日 \\
+    %     成\qquad 绩：\ulinec[.3]{} \\
+    %     指导教师：\ulinec[.3]{} \\
+    %     兼职教师或答疑教师（并指出所负责部分）：\\
+    %     \ulinel{}
+    %     \ulinel{}
+    %     \ulinec[.28]{}系（教研室） 主任（签字）：\ulinec[.28]{} \\
+    %     \vfill
+    %     注：任务书应该附在已完成的毕业设计（论文）的首页。
+    %     \end{spacing}
+    % }
+    % \parindent=2\ccwd
+    % \linespread{1.5}
 }
 
 %%%%%%%%%% nominate %%%%%%%%%%
