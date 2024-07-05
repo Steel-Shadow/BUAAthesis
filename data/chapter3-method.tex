@@ -5,31 +5,37 @@ Big Little Decoder(BiLD)\upcite{kim2023speculative} 框架由 2 个解码器模�
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{BiLD.png}
-    \caption{BiLD 框架}
+    \caption{
+        大模型的正常自回归解码流程（左）；BiLD 解码流程（右）。在 BiLD 中，小模型自回归地生成标记，直到将控制权移交给大模型。 然后，大模型将小模型并行生成的标记作为输入，非自回归（即并行）地生成下一个标记。这样可以更有效地利用底层硬件，从而提升推理速度。
+    }
     \label{fig:BilD}
 \end{figure}
 
 \section{可行性分析}
 
-在多数文本生成场景中，只要纠正了部分错误预测，比大模型小一个数量级的模型也能达到与大模型相当的生成质量。为了验证这一说法，评估两种不同的生成场景：在 WMT 2014 De-En\upcite{bojar-etal-2014-findings} 上使用 mT5\upcite{xue2021mt5} 进行机器翻译，在 CNN/DailyMail\upcite{NIPS2015_afdec700} 上使用 T5\upcite{DBLP:journals/corr/abs-1910-10683} 进行机器翻译。通过控制阈值调整大模型的比重，统计大模型和小模型预测同一标记的似然性。
+在多数文本生成场景中，只要纠正了部分错误预测，比大模型小一个数量级的模型也能达到与大模型相当的生成质量。为了验证这一说法，评估两种不同的生成场景：在 WMT 2014 De-En\upcite{bojar-etal-2014-findings} 上使用 mT5\upcite{xue2021mt5} 进行机器翻译，在 CNN/DailyMail\upcite{NIPS2015_afdec700} 上使用 T5\upcite{DBLP:journals/corr/abs-1910-10683} 进行摘要生成。通过控制阈值调整大模型的比重，统计大模型和小模型预测同一标记的似然性。
 
-图~\ref*{fig:Motivating} 显示了在 2 个基准验证数据集上不同比例的大模型参与时的文本生成质量。结果表明，当大模型替代了小模型约 20\% 的不准确预测时，规模仅大模型 $1/10$ 的小模型才能保持大模型的生成质量。虽然这个实验假定大模型的预测在每次迭代中都是准确的，但它仍然证明了在保持小模型低推理延迟的同时实现大模型文本生成质量的可行性。
+图~\ref*{fig:Motivating} 显示了在 2 个基准验证数据集上不同比例的大模型参与时的文本生成质量。结果表明，当大模型替代了小模型约 20\% 的不准确预测时，规模仅大模型 $1/10$ 的小模型可以保持大模型的生成质量。虽然这个实验假定大模型的预测在每次迭代中都是准确的，但它仍然证明了在保持小模型低推理延迟的同时实现大模型文本生成质量的可行性。
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\textwidth]{Motivating.png}
-    \caption{模型参与比例}
+    \includegraphics[width=0.6\textwidth]{Motivating.png}
+    \caption{
+        大模型参与比例的生成质量影响
+    }
     \label{fig:Motivating}
 \end{figure}
 
 \section{Fallback 策略}
 
-小模型需要决定何时将控制权转交给大模型。文章使用最大预测概率量化判别转交时机：当最大预测概率 $\max _y p_S\left(y \mid y_{1: n-1}\right)$ 小于阈值 $\alpha_{FB}$ 时，Fallback 使用大模型生成下一个标记。
+Fallback 策略决定小模型何时将控制权转交给大模型。当小模型对自己的预测不够自信时，让大模型接管预测。信心量化（Confidence Quantification）是一个活跃的研究领域\upcite{gal2016dropout,kendall2017uncertainties}，任何轻量级的信心指标都可以作为潜在的候选指标。该文使用最大预测概率量化判别转交时机：当最大预测概率 $\max _y p_S\left(y \mid y_{1: n-1}\right)$ 小于阈值 $\alpha_{FB}$ 时，认为预测不够可信，出错的可能性较高，Fallback 使用大模型生成下一个标记。
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{Fallback.png}
-    \caption{Fallback 策略}
+    \caption{
+        Fallback 策略：在小模型自回归生成标记时，如果标记的最大预测概率低于阈值 $\alpha_{FB}$ ，则认为预测不够可信，使用大模型生成标记。
+    }
     \label{fig:Fallback}
 \end{figure}
 
@@ -43,12 +49,16 @@ Big Little Decoder(BiLD)\upcite{kim2023speculative} 框架由 2 个解码器模�
     d\left(p_S\left(y \mid y_{1: m}\right), p_L\left(y \mid y_{1: m}\right)\right)>\alpha_{R B}
 \end{equation}
 
-如果 $m$ 存在，我们就认为小模型生成的标记 $y_m$ 是不准确的，Rollback 撤销 $y_{m}$ 和 $y_{n}$ 之间的预测并将 $y_m$ 替换为大模型的预测 $y_{m,L}$。
+如果 $m$ 存在，就认为小模型生成的标记 $y_m$ 是不准确的，Rollback 撤销 $y_{m}$ 和 $y_{n}$ 之间的预测并将 $y_m$ 替换为大模型的预测 $y_{m,L}$。
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{Rollback.png}
-    \caption{Rollback 策略}
+    \caption{
+        Rollback 策略：
+        当大模型接管控制权时（即 Fallback 策略生效后），它会重新生成之前和当前的所有标记。
+        如果大模型和小模型的预测概率差异 $d$ 超过了阈值 $\alpha_{RB}$，则撤销小模型的预测。
+    }
     \label{fig:Rollback}
 \end{figure}
 

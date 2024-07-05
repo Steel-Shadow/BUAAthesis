@@ -18,14 +18,14 @@
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{result.png}
-    \caption{实验结果}
+    \caption{实验数据：紫线和绿线分别代表是否开启预测对齐的BiLD，两条红线指示基准推理分数和其低 1 分的位置}
     \label{result}
 \end{figure}
 
 \begin{table}[htbp]
     \centering
-    \includegraphics[width=0.9\textwidth]{result_table.png}
     \caption{实验数据总结}
+    \includegraphics[width=0.9\textwidth]{result_table.png}
     \label{result_table}
 \end{table}
 在不进行预测对齐时， BiLD 相对所有基准测试平均提速至 $1.5\sim 2.0$ 倍。未对齐的 BiLD 是一种纯粹的即插即用解决方案，除了独立准备小型模型外，不需要额外的工作。
@@ -34,11 +34,15 @@
 
 \section{消融研究}
 
-分别去除 Rollback 和 Fallback ，研究 BiLD 有效性，结果如图~\ref{ablation}所示。可以发现，尽管 Rollback 回退会造成额外开销，但生成质量的提高更显著。如果取消 Fallback，替换为生成一定数量标记后定期将控制权移交给大模型，会导致性能显著下降。这说明 BiLD 的 Fallback 和 Rollback 策略都是有效的。
+分别取消 Rollback 和 Fallback ，研究 BiLD 有效性。在取消 Rollback 策略时，使用与主实验相同的 Fallback 阈值；取消 Fallback 策略时，使用与主实验相同的 Rollback 阈值，并在小模型执行固定数量的预测后将控制权移交给大模型，与 \upcite{chen2023accelerating} 类似。
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{ablation.png}
-    \caption{实验结果}
+    \caption{
+        消融实验：分别去除 Rollback 和 Fallback，与完整的 BiLD 和基准模型对比
+    }
     \label{ablation}
 \end{figure}
+
+图~\ref{ablation} 消融实验数据表明，Rollback 策略能提升质量，大模型 Rollback 纠正小模型的错误预测至关重要。尽管撤销标记会导致重复计算开销，但生成质量的提高更加显著。同样，取消 Fallback 策略并在生成一定数量的标记后定期将控制权移交给大型模型，也会导致性能明显下降。综上所述，BiLD 的 Fallback 和 Rollback 策略都是有效的。
